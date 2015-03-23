@@ -28,6 +28,23 @@ Dota2.EGCBaseClientMsg = {
     k_EMsgGCServerConnectionStatus: 4010
 };
 
+Dota2.EGCBaseMsg = {
+    k_EMsgGCSystemMessage: 4001,
+    k_EMsgGCReplicateConVars: 4002,
+    k_EMsgGCConVarUpdated : 4003,
+    k_EMsgGCInviteToParty : 4501,
+    k_EMsgGCInvitationCreated : 4502,
+    k_EMsgGCPartyInviteResponse : 4503,
+    k_EMsgGCKickFromParty : 4504,
+    k_EMsgGCLeaveParty : 4505,
+    k_EMsgGCServerAvailable : 4506,
+    k_EMsgGCClientConnectToServer : 4507,
+    k_EMsgGCGameServerInfo : 4508,
+    k_EMsgGCError : 4509,
+    k_EMsgGCReplay_UploadedToYouTube : 4510,
+    k_EMsgGCLANServerAvailable : 4511
+};
+
 Dota2.GCConnectionStatus = {
         GCConnectionStatus_HAVE_SESSION: 0,
         GCConnectionStatus_GC_GOING_DOWN: 1,
