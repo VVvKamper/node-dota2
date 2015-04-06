@@ -16,6 +16,7 @@ var onSteamLogOn = function onSteamLogOn(){
         Dota2.launch();
         Dota2.on("ready", function() {
             console.log("Node-dota2 ready.");
+            Dota2.inviteToPartyRequest('76561198034460886', function() {});
             /* Note:  Should not declare new event listeners nested inside of
             'ready', else you could end up with duplicated handlers if 'ready'
             is fired multiple times.  Exception is made within this test file
@@ -134,6 +135,12 @@ var onSteamLogOn = function onSteamLogOn(){
             console.log("Node-dota2 unready.");
         });
 
+        Dota2.on("partyUpdate", function (message){
+            console.log("party updated");
+            console.dir(message)
+        });
+
+
         Dota2.on("chatMessage", function(channel, personaName, message) {
             // util.log([channel, personaName, message].join(", "));
         });
@@ -170,13 +177,13 @@ var onSteamLogOn = function onSteamLogOn(){
 // Login, only passing authCode if it exists
 var logOnDetails = {
     "accountName": config.steam_user,
-    "password": config.steam_pass,
+    "password": config.steam_pass
 };
 if (config.steam_guard_code) logOnDetails.authCode = config.steam_guard_code;
-var sentry = fs.readFileSync('sentry');
-if (sentry.length) logOnDetails.shaSentryfile = sentry;
+//var sentry = fs.readFileSync('sentry');
+//if (sentry.length) logOnDetails.shaSentryfile = sentry;
 bot.logOn(logOnDetails);
 bot.on("loggedOn", onSteamLogOn)
-    .on('sentry', onSteamSentry)
+    //.on('sentry', onSteamSentry)
     .on('servers', onSteamServers)
     .on('webSessionID', onWebSessionID);

@@ -33,8 +33,5 @@ var handlers = Dota2.Dota2Client.prototype._handlers;
 
 handlers[Dota2.EGCBaseMsg.k_EMsgGCPartyInviteResponse] = function onPartyInvite(message) {
     var response = base_gcmessages.k_EMsgGCPartyInviteResponse.parse(message);
-    if (message.accept) {
-        if (this.debug) util.log('Party invite received');
-    }
-    else if (this.debug) util.log('Party invite declined');
+    this.emit("partyRespone", message.accept, message);
 };

@@ -244,6 +244,13 @@ handlers[Dota2.ESOMsg.k_ESOMsg_CacheSubscribed] = function(message, callback){ /
   var practiceLobbyCreateResponse = gcsdk_gcmessages.CMsgSOCacheSubscribed.parse(message);
 
   if(this.debug) util.log("Received CMsgSOCacheSubscribed (practice lobby create) response.");
+  practiceLobbyCreateResponse.objects.forEach(function (obj){
+    console.log(obj.typeId);
+    if (obj.typeId === 2003) {
+      msg = dota_gcmessages_common.CSODOTAParty.parse(obj.objectData[0]);
+      console.dir(msg)
+    }
+  });
   id = practiceLobbyCreateResponse.ownerSoid.id;
   if(this.debug) util.log("Interpreted lobby ID "+id);
 
@@ -256,6 +263,12 @@ handlers[Dota2.ESOMsg.k_ESOMsg_Create] = function(message, callback){
 
 handlers[Dota2.ESOMsg.k_ESOMsg_UpdateMultiple] = function(message, callback){
   var response = gcsdk_gcmessages.CMsgSOMultipleObjects.parse(message);
+  response.objectsModified.forEach(function (obj){
+    if (obj.typeId === 2003) {
+      msg = dota_gcmessages_common.CSODOTAParty.parse(obj.objectData);
+      console.dir(msg)
+    }
+  });
   var lobby = dota_gcmessages_common.CSODOTALobby.parse(response.objectsModified[0].objectData);
   //We don't know how to interpret this yet
   if(this.debug) util.log("Received lobby member update.");
